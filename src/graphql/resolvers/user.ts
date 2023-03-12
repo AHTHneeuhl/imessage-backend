@@ -27,7 +27,7 @@ const resolvers = {
           where: { username },
         });
 
-        if (!existingUser) {
+        if (existingUser) {
           return {
             error: "Username already taken, Try another!",
           };
@@ -45,7 +45,7 @@ const resolvers = {
         return {
           success: true,
         };
-      } catch (error) {
+      } catch (error: any) {
         console.log("create username error!");
         return {
           error: error?.message,
