@@ -11,7 +11,7 @@ import { getSession } from "next-auth/react";
 import resolvers from "./graphql/resolvers";
 import typeDefs from "./graphql/typeDefs";
 import * as dotenv from "dotenv";
-import { GraphQLContext } from "./utils/types";
+import { GraphQLContext, Session } from "./utils/types";
 
 const main = async () => {
   dotenv.config();
@@ -36,7 +36,7 @@ const main = async () => {
     json(),
     expressMiddleware(server, {
       context: async ({ req }): Promise<GraphQLContext> => {
-        const session = await getSession({ req });
+        const session = (await getSession({ req })) as Session;
         return { session, prisma };
       },
     })

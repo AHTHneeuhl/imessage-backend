@@ -10,13 +10,17 @@ export interface GraphQLContext {
 // Users
 
 export interface Session {
-  user: User;
+  user?: User;
   expires: ISODateString;
 }
 
 export interface User {
   id: string;
   username?: string;
+  name?: string;
+  email?: string;
+  emailVerified?: boolean;
+  image?: string;
 }
 
 export interface CreateUsernameResponse {
