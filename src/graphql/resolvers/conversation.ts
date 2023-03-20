@@ -8,7 +8,7 @@ const resolvers = {
       _: any,
       args: { participantIds: string[] },
       ctx: GraphQLContext
-    ) => {
+    ): Promise<{ conversationId: string }> => {
       const { session, prisma } = ctx;
       const { participantIds } = args;
 
@@ -34,6 +34,10 @@ const resolvers = {
           },
           include: conversationPopulated,
         });
+
+        return {
+          conversationId: conversation.id,
+        };
       } catch (error: any) {
         console.log("Create conversation errog", error);
         throw new GraphQLError("Error", error.message);
